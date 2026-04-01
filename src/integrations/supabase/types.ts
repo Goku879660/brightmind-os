@@ -14,7 +14,225 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ideas: {
+        Row: {
+          ai_expansion: string | null
+          archived: boolean
+          cleaned_text: string | null
+          created_at: string
+          id: string
+          raw_text: string
+          session_id: string
+        }
+        Insert: {
+          ai_expansion?: string | null
+          archived?: boolean
+          cleaned_text?: string | null
+          created_at?: string
+          id?: string
+          raw_text: string
+          session_id: string
+        }
+        Update: {
+          ai_expansion?: string | null
+          archived?: boolean
+          cleaned_text?: string | null
+          created_at?: string
+          id?: string
+          raw_text?: string
+          session_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ideas_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plans: {
+        Row: {
+          coach_summary: string | null
+          commitments: Json
+          created_at: string
+          date: string
+          deep_work_hours: number
+          end_time: string
+          energy_level: number
+          id: string
+          learning_hours: number
+          motivation_level: number
+          priorities: Json
+          schedule_blocks: Json
+          start_time: string
+          task_completion: Json
+          tasks: Json
+        }
+        Insert: {
+          coach_summary?: string | null
+          commitments?: Json
+          created_at?: string
+          date: string
+          deep_work_hours?: number
+          end_time?: string
+          energy_level?: number
+          id?: string
+          learning_hours?: number
+          motivation_level?: number
+          priorities?: Json
+          schedule_blocks?: Json
+          start_time?: string
+          task_completion?: Json
+          tasks?: Json
+        }
+        Update: {
+          coach_summary?: string | null
+          commitments?: Json
+          created_at?: string
+          date?: string
+          deep_work_hours?: number
+          end_time?: string
+          energy_level?: number
+          id?: string
+          learning_hours?: number
+          motivation_level?: number
+          priorities?: Json
+          schedule_blocks?: Json
+          start_time?: string
+          task_completion?: Json
+          tasks?: Json
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          ai_summary: string | null
+          context_switched: boolean
+          created_at: string
+          energy: number
+          flow: number
+          focus: number
+          id: string
+          mission_completed: boolean
+          motivation: number
+          note: string | null
+          productivity: number
+          session_id: string
+          times_distracted: number
+        }
+        Insert: {
+          ai_summary?: string | null
+          context_switched?: boolean
+          created_at?: string
+          energy?: number
+          flow?: number
+          focus?: number
+          id?: string
+          mission_completed?: boolean
+          motivation?: number
+          note?: string | null
+          productivity?: number
+          session_id: string
+          times_distracted?: number
+        }
+        Update: {
+          ai_summary?: string | null
+          context_switched?: boolean
+          created_at?: string
+          energy?: number
+          flow?: number
+          focus?: number
+          id?: string
+          mission_completed?: boolean
+          motivation?: number
+          note?: string | null
+          productivity?: number
+          session_id?: string
+          times_distracted?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sessions: {
+        Row: {
+          break_minutes: number
+          date: string
+          ended_at: string | null
+          focus_minutes: number
+          id: string
+          idea_captures: Json
+          method: string
+          mission: string
+          plan_id: string | null
+          started_at: string
+          switch_attempts: Json
+        }
+        Insert: {
+          break_minutes?: number
+          date?: string
+          ended_at?: string | null
+          focus_minutes?: number
+          id?: string
+          idea_captures?: Json
+          method?: string
+          mission: string
+          plan_id?: string | null
+          started_at?: string
+          switch_attempts?: Json
+        }
+        Update: {
+          break_minutes?: number
+          date?: string
+          ended_at?: string | null
+          focus_minutes?: number
+          id?: string
+          idea_captures?: Json
+          method?: string
+          mission?: string
+          plan_id?: string | null
+          started_at?: string
+          switch_attempts?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sessions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      weekly_insights: {
+        Row: {
+          created_at: string
+          id: string
+          insight_text: string
+          week_start: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          insight_text: string
+          week_start: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          insight_text?: string
+          week_start?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
