@@ -1,16 +1,22 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { Sun, Target, ClipboardCheck, BarChart3 } from 'lucide-react';
+import { Sun, Target, ClipboardCheck, BarChart3, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
   { path: '/', icon: Sun, label: 'Plan' },
   { path: '/focus', icon: Target, label: 'Focus' },
   { path: '/review', icon: ClipboardCheck, label: 'Review' },
-  { path: '/dashboard', icon: BarChart3, label: 'Dashboard' },
+  { path: '/insights', icon: BarChart3, label: 'Insights' },
 ];
 
-export function AppSidebar() {
+interface AppSidebarProps {
+  hidden?: boolean;
+}
+
+export function AppSidebar({ hidden }: AppSidebarProps) {
   const location = useLocation();
+
+  if (hidden) return null;
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-16 border-r border-border bg-card flex flex-col items-center py-6 gap-1 z-50">
@@ -35,6 +41,19 @@ export function AppSidebar() {
           </NavLink>
         );
       })}
+      <div className="mt-auto">
+        <NavLink
+          to="/settings"
+          className={cn(
+            'flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-150',
+            location.pathname === '/settings'
+              ? 'bg-primary/10 text-primary'
+              : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+          )}
+        >
+          <Settings className="h-4 w-4" />
+        </NavLink>
+      </div>
     </aside>
   );
 }
