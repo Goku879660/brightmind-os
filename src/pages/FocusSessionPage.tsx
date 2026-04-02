@@ -123,8 +123,13 @@ export default function FocusSessionPage() {
 
   const handleEndSession = async () => {
     if (sessionId) {
-      await endSessionDb(sessionId);
-      navigate('/review', { state: { sessionId } });
+      const endedId = sessionId;
+      await endSessionDb(endedId);
+      // Reset local state so the UI exits lockdown immediately
+      setSessionId(null);
+      setStatus('idle');
+      setTimeLeft(0);
+      navigate('/review', { state: { sessionId: endedId } });
     }
   };
 
